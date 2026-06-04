@@ -16,27 +16,24 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Admin
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin',
-            'password' => bcrypt('password'),
+        User::create([
+            'name' => 'Azharul Hakim',
+            'email' => 'Azharul Hakim',
+            'password' => bcrypt('202351063'),
         ]);
 
         // Classes
-        $class1 = \App\Models\SchoolClass::create(['name' => 'XII RPL 1']);
-        $class2 = \App\Models\SchoolClass::create(['name' => 'XII TKJ 1']);
+        $class = \App\Models\SchoolClass::create([
+            'level' => 'XII',
+            'major' => 'RPL',
+            'class_letter' => '1',
+        ]);
 
         // Students
         \App\Models\Student::create([
-            'nis' => '12345',
-            'name' => 'Budi Santoso',
-            'class_id' => $class1->id,
-        ]);
-
-        \App\Models\Student::create([
-            'nis' => '67890',
-            'name' => 'Siti Aminah',
-            'class_id' => $class2->id,
+            'nis' => '51063',
+            'name' => 'Azharul Hakim',
+            'class_id' => $class->id,
         ]);
     }
 }

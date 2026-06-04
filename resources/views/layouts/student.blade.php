@@ -60,11 +60,19 @@
 </head>
 
 <body class="bg-dark-900 text-gray-200 antialiased">
-    <div class="flex h-screen overflow-hidden">
+    <div x-data="{ sidebarOpen: false }" class="flex h-screen overflow-hidden relative">
+        <!-- Backdrop -->
+        <div x-show="sidebarOpen" 
+             @click="sidebarOpen = false"
+             x-transition:opacity
+             class="fixed inset-0 z-40 bg-black/60 md:hidden"
+             style="display: none;"></div>
+
         <!-- Sidebar -->
-        <aside class="w-64 bg-dark-800 border-r border-dark-700 hidden md:flex flex-col">
+        <aside class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-dark-800 border-r border-dark-700 flex flex-col transform transition-transform duration-300 md:translate-x-0"
+               :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
             <!-- Logo -->
-            <div class="h-16 flex items-center px-6 border-b border-dark-700">
+            <div class="h-16 flex items-center justify-between px-6 border-b border-dark-700">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,6 +83,12 @@
                     </div>
                     <span class="font-bold text-lg tracking-tight">Pinjam Raport</span>
                 </div>
+                <!-- Close Button (Mobile Only) -->
+                <button @click="sidebarOpen = false" class="md:hidden text-gray-400 hover:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
             </div>
 
             <!-- Navigation -->
@@ -126,9 +140,26 @@
         <!-- Main Content -->
         <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Mobile Header -->
-            <header class="h-16 bg-dark-800 border-b border-dark-700 flex md:hidden items-center justify-between px-4">
-                <span class="font-bold text-lg">Pinjam Raport</span>
-                <!-- Add Mobile Menu Button functionality later if needed -->
+            <header class="h-16 bg-dark-800 border-b border-dark-700 flex md:hidden items-center justify-between px-4 z-30">
+                <div class="flex items-center gap-3">
+                    <button @click="sidebarOpen = true" class="text-gray-400 hover:text-white focus:outline-none p-1 rounded-lg hover:bg-dark-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    <span class="font-bold text-lg">Pinjam Raport</span>
+                </div>
+                <!-- Quick Logout Button for Mobile -->
+                <form action="{{ route('student.logout') }}" method="POST" class="flex items-center">
+                    @csrf
+                    <button type="submit" class="text-red-400 hover:text-red-300 p-1.5 rounded-lg hover:bg-red-500/10 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                            </path>
+                        </svg>
+                    </button>
+                </form>
             </header>
 
             <!-- Scrollable Content -->

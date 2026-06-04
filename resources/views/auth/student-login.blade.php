@@ -34,8 +34,21 @@
     </style>
 </head>
 
-<body class="bg-dark-900 flex items-center justify-center h-screen text-gray-200">
-    <div class="bg-dark-800 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-dark-700">
+<!-- 
+    ========================================================================================
+    PANDUAN BACKGROUND GAMBAR (SISWA/STUDENT):
+    1. Letakkan file gambar Anda di folder: public/images/ (misal: public/images/student-bg.jpg)
+    2. Ubah URL gambar pada properti style="background-image: url(...)" di bawah ini jika nama file berbeda.
+    ========================================================================================
+-->
+<body class="bg-dark-900 flex items-center justify-center min-h-screen text-gray-200 py-12 px-4 relative bg-cover bg-center bg-no-repeat" 
+      style="background-image: url('{{ asset('images/student-bg.jpg') }}');">
+    
+    <!-- Overlay Gelap (Mengatur kegelapan/kontras gambar latar belakang agar teks tetap terbaca) -->
+    <div class="absolute inset-0 bg-black/75 z-0"></div>
+
+    <!-- Login Card Container (Menggunakan glassmorphism backdrop-blur agar background tembus cantik) -->
+    <div class="bg-dark-800/80 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-full max-w-md border border-dark-700/50 relative z-10">
         <div class="text-center mb-8">
             <div
                 class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-600 mb-4 shadow-lg shadow-blue-900/20">
@@ -99,6 +112,16 @@
                 Masuk
             </button>
         </form>
+
+        <!-- Tombol Kembali ke Landing Page -->
+        <div class="mt-6 text-center border-t border-dark-700 pt-4">
+            <a href="{{ route('home') }}" class="text-xs text-gray-400 hover:text-blue-400 transition-colors inline-flex items-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                </svg>
+                Kembali ke Beranda
+            </a>
+        </div>
     </div>
 </body>
 

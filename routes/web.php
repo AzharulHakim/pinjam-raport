@@ -8,7 +8,7 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
-    return redirect()->route('login.student');
+    return view('welcome');
 })->name('home');
 
 // Auth Routes
